@@ -27,6 +27,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 
+
 class GameObject:
     """Базовый класс для игровых объектов."""
     def __init__(self, position, color):
@@ -36,6 +37,7 @@ class GameObject:
     def draw(self):
         """Метод для отрисовки объекта."""
         raise NotImplementedError("Метод draw должен быть реализован в дочерних классах.")
+
 
 class Apple(GameObject):
     """Класс, описывающий яблоко."""
@@ -54,6 +56,7 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
 
 class Snake(GameObject):
     """Класс, описывающий змейку."""
@@ -79,7 +82,7 @@ class Snake(GameObject):
             (head_x + dx * GRID_SIZE) % SCREEN_WIDTH,
             (head_y + dy * GRID_SIZE) % SCREEN_HEIGHT
         )
-        
+
         if new_head in self.positions[1:]:
             self.reset()
         else:
@@ -115,6 +118,7 @@ class Snake(GameObject):
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
+
 def handle_keys(snake):
     """Обрабатывает нажатия клавиш для изменения направления змейки."""
     for event in pygame.event.get():
@@ -131,10 +135,11 @@ def handle_keys(snake):
             elif event.key == pygame.K_RIGHT and snake.direction != LEFT:
                 snake.next_direction = RIGHT
 
+
 def main():
     """Основная функция игры."""
     pygame.init()
-    
+
     snake = Snake()
     apple = Apple()
 
@@ -153,6 +158,7 @@ def main():
         snake.draw()
         apple.draw()
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
