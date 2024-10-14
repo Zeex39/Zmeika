@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import randint
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -50,6 +50,7 @@ class Apple(GameObject):
         self.position = (x, y)
 
     def draw(self):
+        """Отрисовывает яблоко на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
@@ -74,7 +75,10 @@ class Snake(GameObject):
         """Обновляет положение змейки."""
         head_x, head_y = self.get_head_position()
         dx, dy = self.direction
-        new_head = ((head_x + dx * GRID_SIZE) % SCREEN_WIDTH, (head_y + dy * GRID_SIZE) % SCREEN_HEIGHT)
+        new_head = (
+            (head_x + dx * GRID_SIZE) % SCREEN_WIDTH,
+            (head_y + dy * GRID_SIZE) % SCREEN_HEIGHT
+        )
         
         if new_head in self.positions[1:]:
             self.reset()
@@ -112,7 +116,7 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
 def handle_keys(snake):
-    """Обрабатывает нажатия клавиш для изменения направления движения змейки."""
+    """Обрабатывает нажатия клавиш для изменения направления змейки."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
